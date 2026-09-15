@@ -1,3 +1,7 @@
+##Magnitude Set 0##
+##This codes for the magnitude of movement for each bacteria in "output-Set0.txt".##
+
+
 #Output0
 #Formula for momentum
 calculate_momentum <- function(px,py,pz) { #Function for value input
@@ -31,4 +35,3 @@ data$momentum <- momentum
 print("Output Set 0")
 print(data)
 print("The table above shows the magnitude of the momentum (movement) of each bacteria")
-print("The bacteria with particle_id 211 in row 12 has the largest magnitude")
