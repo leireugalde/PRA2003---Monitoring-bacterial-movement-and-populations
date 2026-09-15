@@ -1,4 +1,5 @@
-##Magnitude Set 0##
+##PRA2003 - Monitoring Bacterial movement and populations##
+##Magnitude of Set 0##
 ##This codes for the magnitude of movement for each bacteria in "output-Set0.txt".##
 
 
