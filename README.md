@@ -1,7 +1,7 @@
 # PRA2003---Monitoring-bacterial-movement-and-populations
 Leire Ugalde Salvá - i6384470
 
-##Overview##
+## Overview ##
 This project analyzes bacterial data tracking to study the movement and proliferation of different bacteria under specific nutrient or stress conditions. It analyzes changes in behavior in bacterial strains and their genetic variants. For each event, the data is read under and used to answer the three questions presented below. 
 
 ## Answer the following questions with the given dataset on bacterial movement and populations ##
