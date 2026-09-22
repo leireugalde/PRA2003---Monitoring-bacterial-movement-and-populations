@@ -1,4 +1,6 @@
-# PRA2003 Week 3 Deliverable
+#PRA2003 - Monitoring Bacterial movement and populations  
+## Week 3 deliverable
+
 ## Code finding the average count of bacteria in different experiments
 ## The code reads an output file, counts how many bacteria (specific ID) appear
 ## It then calculates the mean count and uncertainty for each bacteria ID
