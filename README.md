@@ -11,7 +11,10 @@ This project analyzes bacterial data tracking to study the movement and prolifer
 
 ## Files ##
 • (PRA2003Week2.R) reads one event from the data file (output-Set0.txt) and calculates the momentum magnitude of each bacteria
+
+
 • (PRA2003Week3.R) reads the average bacteria per event together with the statistical uncertainty (default output-Set1.txt, but allows user input)
+
 • Following files will be defined in upcoming weeks
 
 ## Data format ##
@@ -20,6 +23,8 @@ This project analyzes bacterial data tracking to study the movement and prolifer
     -One line per particle: px py pz code 
         --> Where px/py/pz are momentum components 
         --> Where code identifies the strain (normal or mutant)
+
+• The rest of data is formated in the same manner (output-Set1.txt, output-Set2.txt...)
 
 ## Results ##
 To be filled in once complete analysis is completed 
