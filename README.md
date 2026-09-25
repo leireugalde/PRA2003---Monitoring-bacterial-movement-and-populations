@@ -13,7 +13,9 @@ This project analyzes bacterial data tracking to study the movement and prolifer
 • (PRA2003Week2.R) reads one event from the data file (output-Set0.txt) and calculates the momentum magnitude of each bacteria
 
 
-• (PRA2003Week3.R) reads the average bacteria per event together with the statistical uncertainty (default output-Set1.txt, but allows user input)
+• (PRA2003Week3.R) reads the average bacteria per event together with the statistical uncertainty (default output-Set1.txt, but allows user input) ---- This was the first attempt at the code, it had errors so it is not used for following weeks
+
+• (PRA2003Week3Corrected.R) correctly reads average bacteria per event, together with statstical uncertainty (default output-Set1.txt). This code is used in the following weeks
 
 • Following files will be defined in upcoming weeks
 
