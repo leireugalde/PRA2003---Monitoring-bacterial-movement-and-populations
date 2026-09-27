@@ -94,7 +94,7 @@ For each pair, the difference between the two averages was compared against the 
 | Pseudomonas aeruginosa WT (2212) vs. resistant (−2212) | 1.20803 | 1.18416 | 0.02387 | 7.20e-04 | 33.17 | Asymmetry is significant |
 | S. pneumoniae (3122) vs. capsule-deficient (−3122) | 0.27660 | 0.27170 | 0.00490 | 3.45e-04 | 14.23 | Asymmetry is significant |
 | M. tuberculosis (3312) vs. drug-resistant (−3312) | 0.03944 | 0.03900 | 0.00044 | 1.30e-04 | 3.38 | Asymmetry is significant |
-| Salmonella enterica (3334) vs. mutant (−3334) | 0.00119 | 0.00115 | 0.00004 | 2.25e-05 | 1.58 | Asymmetry is significant |
+| Salmonella enterica (3334) vs. mutant (−3334) | 0.00119 | 0.00115 | 0.00004 | 2.25e-05 | 1.58 | Asymmetry is weak |
 
 
 
