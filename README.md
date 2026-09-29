@@ -3,7 +3,7 @@
 
 ## Overview and context 
 
-This project analyzes bacterial tracking data to study the movement and proliferation of different bacterial strains under specific conditions, and how behavior differs between wild-type (WT) strains and their genetic variants (mutants). This matters because mutant strains (antibiotic resistance, capsule deficient, drug resistant...) can behave differently to their WT pair under the same conditions. These mutations can potentially affect bacterial growth or movement. The impact of bacterial mutations under these conditions are not only measured by survival, but also by the possible asymmetry between a WT/mutant and their momentum. For each event, the data is read and used to answer the three questions below.
+This project analyzes bacterial tracking data to study the movement and proliferation of different bacterial strains under specific conditions, and how behavior differs between wild-type (WT) strains and their genetic variants (mutants). This matters because mutant strains don't always behave the same as their WT counterpart under the same conditions, resistance or other mutations can come at a cost to growth or movement, or not affect it at all. Looking at survival alone doesn't capture that, so this project also checks for asymmetry between WT/mutant pairs and their momentum.
 
 ## Research Questions
 
@@ -30,26 +30,21 @@ To run:
 | `PRA2003Week2.R` | Reads one event from the data file (`output-Set0.txt`) and calculates the momentum magnitude of each bacterium. |
 | `PRA2003Week3.R` | First attempt at reading the average bacteria count per event and its statistical uncertainty (default `output-Set1.txt`, but allows user input). **Contained errors, not used in later weeks.** |
 | `PRA2003Week3Corrected.R` | Corrected version: reads the average bacteria count per event and its statistical uncertainty (default `output-Set1.txt`). This is the version used in all later weeks. |
-| `PRA2003Week4.R` | Runs the Week 3 analysis across all 10 datasets (`output-Set1.txt` to `output-Set10.txt`), combines the results into an overall average and uncertainty per strain, and tests whether there is asymmetry between each WT/mutant pair. |
+| `PRA2003Week4.R` | Runs the Week 3 analysis across all 10 datasets (`output-Set1.txt` to `output-Set10.txt`) and computes the mean and standard deviation of each strain's count across the 10 sub-samples. |
 
 Additional files will be added and documented in upcoming weeks.
 
-### More detail on `PRA2003Week4.R`
+**Method: sub-sampling**
+
+The full sample (5M events) is split into 10 sub-samples of 500K events each (`output-Set1.txt` to `output-Set10.txt`). Each quantity is worked out separately within every subsample. The final result is just the mean of the 10 subsample results, which comes out equal to the result for the full sample. Its statistical uncertainty is taken as the standard deviation across those 10 subsample results.
 
 - Runs the same strain-counting logic from `PRA2003Week3Corrected.R` on each of the 10 files individually.
-- Combines the results by summing the raw counts and event totals across all 10 datasets before dividing, this pools the counting data.
-- Computes an overall average count per event and uncertainty for each of the 12 strains.
-- Determines whether each WT/mutant pair is symmetric. For each pair (e.g. *E. coli* WT (211) vs. *E. coli* mutant (−211)):
-  - Calculates the difference between the two averages.
-  - Calculates the combined uncertainty on that difference: `sqrt(uncertaintyA² + uncertaintyB²)`.
-  - Calculates a z-score (`difference / combined uncertainty`) to determine how many sigmas apart the values are:
-    - |z| ≥ 3 → statistically significant asymmetry
-    - 2 ≤ |z| < 3 → weak evidence of asymmetry
-    - |z| < 2 → no real asymmetry
-- Output
-    - `results-PerDataset.csv` per-strain averages for each of 10 datasets individually
-    - `results-Combined.csv`pooled average and uncertainty per strain across 10 datasets
-    - `results-PairwiseAsymmetry.csv` difference, combined uncertainty and z-score for each WT/mutant pair. Answers whether the pairs are symmetrical 
+- Computes, per strain, the mean count across the 10 subsamples and its SD.
+- Nothing beyond this is calculated by the script: the WT/mutant asymmetry comparison (see Question 2 below) was worked out manually in Excel, using the mean and SD values the script produces as the starting point.
+
+**Output**
+- `results-PerDataset.csv` - per strain averages for each of the 10 datasets individually
+- `results-Combined.csv` - mean and standard deviation per strain across the 10 subsamples
 
 
 ## Input data Format
@@ -68,34 +63,41 @@ Answering research questions above
 
 | Strain ID | Strain | Average count per event | Uncertainty |
 |---|---|---|---|
-| 211 | E. coli WT | 19.94951 | 2.08e-03 |
-| -211 | E. coli mutant | 19.91721 | 2.08e-03 |
-| 321 | Bacillus subtilis WT | 2.50915 | 7.37e-04 |
-| -321 | Bacillus subtilis mutant | 2.50346 | 7.36e-04 |
-| 2212 | Pseudomonas aeruginosa WT | 1.20803 | 5.11e-04 |
-| -2212 | Pseudomonas aeruginosa antibiotic-resistant | 1.18416 | 5.06e-04 |
-| 3122 | Streptococcus pneumoniae | 0.27660 | 2.45e-04 |
-| -3122 | Capsule-deficient S. pneumoniae | 0.27170 | 2.43e-04 |
-| 3312 | Mycobacterium tuberculosis | 0.03944 | 9.24e-05 |
-| -3312 | Drug-resistant M. tuberculosis | 0.03900 | 9.19e-05 |
-| 3334 | Salmonella enterica | 0.00119 | 1.60e-05 |
-| -3334 | Salmonella mutant | 0.00115 |  1.58e-05 |
+| 211 | E. coli WT | 19.94951 | 3.27e-02 |
+| -211 | E. coli mutant | 19.91721 | 3.19e-02 |
+| 321 | Bacillus subtilis WT | 2.50915 | 4.77e-03 |
+| -321 | Bacillus subtilis mutant | 2.50346 | 5.50e-03 |
+| 2212 | Pseudomonas aeruginosa WT | 1.20803 | 1.90e-03 |
+| -2212 | Pseudomonas aeruginosa antibiotic-resistant | 1.18416 | 2.41e-03 |
+| 3122 | Streptococcus pneumoniae | 0.27660 | 1.07e-03 |
+| -3122 | Capsule-deficient S. pneumoniae | 0.27170 | 9.85e-04 |
+| 3312 | Mycobacterium tuberculosis | 0.03944 | 2.84e-04 |
+| -3312 | Drug-resistant M. tuberculosis | 0.03900 | 4.02e-04 |
+| 3334 | Salmonella enterica | 0.00119 | 4.17e-05 |
+| -3334 | Salmonella mutant | 0.00115 |  5.08e-05 |
 
 Results from `PRA2003Week4.R`
 
 ### 2. Asymmetry between WT and mutant strains
 
-For each pair, the difference between the two averages was compared against the combined uncertainty on that difference, giving a z-score (number of sigmas apart the two values are). This is the basis for the asymmetry conclusion below. 
+To check for asymmetry, A had to be worked out separately for each of the 10 sub-samples first. The following formula: 
 
-| Pair | Average A | Average B | Difference | Combined uncertainty | z-score | Conclusion |
-|---|---|---|---|---|---|---|
-| E. coli WT (211) vs. mutant (−211) | 19.94951 | 19.91721 | 0.03230 | 2.94e-03 | 10.99 | Asymmetry is significant |
-| Bacillus subtilis WT (321) vs. mutant (−321) | 2.50915 | 2.50346 | 0.00569 | 1.04e-03 | 5.46 | Asymmetry is significant |
-| Pseudomonas aeruginosa WT (2212) vs. resistant (−2212) | 1.20803 | 1.18416 | 0.02387 | 7.20e-04 | 33.17 | Asymmetry is significant |
-| S. pneumoniae (3122) vs. capsule-deficient (−3122) | 0.27660 | 0.27170 | 0.00490 | 3.45e-04 | 14.23 | Asymmetry is significant |
-| M. tuberculosis (3312) vs. drug-resistant (−3312) | 0.03944 | 0.03900 | 0.00044 | 1.30e-04 | 3.38 | Asymmetry is significant |
-| Salmonella enterica (3334) vs. mutant (−3334) | 0.00119 | 0.00115 | 0.00004 | 2.25e-05 | 1.58 | Asymmetry is weak |
+**A = (N_WT − N_mutant) / (N_WT + N_mutant)**
 
+A's uncertainty is just the standard deviation of its 10 values across the sub-samples. Working out A per subsample instead of on the pooled totals matters because it keeps WT and mutant counts paired to the same events the whole time. They're measured together, not as two separate things. A pair is called asymmetric if |A| is at least 3 times bigger than that uncertainty (the 3σ cutoff), and symmetric otherwise.
+
+All of the values were calculated manually in Excel by applying the formula individually. 
+
+| Pair | Difference (WT − mutant) | Asymmetry A (%) | Significance | Result |
+|---|---|---|---|---|
+| E. coli | 0.032 ± 0.005 | 0.08 ± 0.01 | 7.2σ | Asymmetric |
+| B. subtilis | 0.006 ± 0.003 | 0.11 ± 0.07 | 1.7σ | Symmetric |
+| P. aeruginosa | 0.024 ± 0.002 | 1.0 ± 0.1 | 10σ | Asymmetric |
+| S. pneumoniae | 0.0049 ± 0.0006 | 0.9 ± 0.1 | 8.5σ | Asymmetric |
+| M. tuberculosis | 0.0004 ± 0.0005 | 0.6 ± 0.6 | 0.9σ | Symmetric |
+| Salmonella | 0.00004 ± 0.00007 | 1.6 ± 2.9 | 0.5σ | Symmetric |
+
+**Conclusion:** Three pairs come out asymmetric at the 3σ threshold: E. coli, P. aeruginosa and S. pneumoniae, all with WT more abundant than the mutant. The other three: B. subtilis, M. tuberculosis and Salmonella, come out symmetric.
 
 
 ### 3. Asymmetry as a function of momentum
