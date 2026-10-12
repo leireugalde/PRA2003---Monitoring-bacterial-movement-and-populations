@@ -3,7 +3,7 @@
 
 ## Overview and context 
 
-This project analyzes bacterial tracking data to study the movement and proliferation of different bacterial strains under specific conditions, and how behavior differs between wild-type (WT) strains and their genetic variants (mutants). This matters because mutant strains don't always behave the same as their WT counterpart under the same conditions, resistance or other mutations can come at a cost to growth or movement, or not affect it at all. Looking at survival alone doesn't capture that, so this project also checks for asymmetry between WT/mutant pairs and their momentum.
+This project analyzes bacterial tracking data to study the movement and proliferation of different bacterial strains under specific conditions, and how behavior differs between wild-type (WT) strains and their genetic variants (mutants). This matters because mutant strains don't always behave the same as their WT counterpart under the same conditions, resistance or other mutations can come at a cost to growth or movement, or not affect it at all. Looking at survival alone doesn't capture that, so this project also checks for asymmetry between WT/mutant pairs and their momentum. This can show whether a mutation can have an impact on the amount of bacteria and their movement (momentum), and whether there is a dependence. 
 
 ## Research Questions
 
@@ -13,6 +13,7 @@ This project analyzes bacterial tracking data to study the movement and prolifer
 
 ## Installation and usage
 Needs R (tested with R 4.x), no additional packets are required.
+The momentum analysis (Week 5/6) also requires Python 3 with numpy, pandas and matplotlib installed. 
 
 To run:
 1. Put all the data files (output-Set0.txt, output-Set1.txt ... output-Set10.txt) in the same folder as the scripts.
@@ -20,9 +21,16 @@ To run:
 3. Depending on what you want to run:
    - single dataset, week 3 version: `source("PRA2003Week3Corrected.R")` will ask you to type a filename, or just press enter to use output-Set1.txt
    - all 10 datasets combined, week 4: `source("PRA2003Week4.R")` runs automatically, no input needed, just needs PRA2003Week3Corrected.R,  in the same folder
+   - momentum analysis done during weeks 5 and 6
+      - `source("deliverable6F_momentum.R")´ reads all 10 datasets and makes momenta-Set1.csv- momenta-Set10.csv.
+            - This is slow step (a few minutes, the files have ~5 million lines each), only has to be run a few times
+   - `python deliverable6_momentum.py´ asks for the WT ID of the pair (211, 321, 2212, 3122, 3312 or 3334).
+            - Run it once per pair, takes a few seconds
 4. Output:
    - week 3 prints the results table straight to the console
    - week 4 prints the combined results and the WT/mutant comparison to the console, and also saves them as CSV files (results-PerDataset.csv, results-Combined.csv, results-PairwiseAsymmetry.csv) in the same folder, so they can be checked without re-running the script
+   - the momentum R script prints how many bacteria of each ID it found per dataset (should match the week 4 counts) and saves the `momenta-SetN.csv files
+   - the momentum Python script saves, for chosen pair: `asymmetry-<ID>.png´ (asymmetry vs momentum), `spectrum-<ID>.png` (dN/dP of WT and mutant vs momentum) and `asymmetry-<ID>.csv´ (all numbers per momentum bin). It also prints momentum percentiles, counts per sub-sample, the table per bin, the overall asymmetry and the line fit
 
 ## Files 
 | File | Description |
