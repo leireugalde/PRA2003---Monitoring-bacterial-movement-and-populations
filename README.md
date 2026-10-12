@@ -28,8 +28,8 @@ To run:
             - Run it once per pair, takes a few seconds
 4. Output:
    - week 3 prints the results table straight to the console
-   - week 4 prints the combined results and the WT/mutant comparison to the console, and also saves them as CSV files (results-PerDataset.csv, results-Combined.csv, results-PairwiseAsymmetry.csv) in the same folder, so they can be checked without re-running the script
-   - the momentum R script prints how many bacteria of each ID it found per dataset (should match the week 4 counts) and saves the `momenta-SetN.csv files
+   - week 4 prints the combined results and the WT/mutant comparison to the console, and also saves them as CSV files (`results-PerDataset.csv´, `results-Combined.csv´, `results-PairwiseAsymmetry.csv´) in the same folder, so they can be checked without re-running the script
+   - the momentum R script prints how many bacteria of each ID it found per dataset (should match the week 4 counts) and saves the `momenta-SetN.csv´ files
    - the momentum Python script saves, for chosen pair: `asymmetry-<ID>.png´ (asymmetry vs momentum), `spectrum-<ID>.png` (dN/dP of WT and mutant vs momentum) and `asymmetry-<ID>.csv´ (all numbers per momentum bin). It also prints momentum percentiles, counts per sub-sample, the table per bin, the overall asymmetry and the line fit
 
 ## Files 
