@@ -37,14 +37,16 @@ To run:
 |---|---|
 | `PRA2003Week2.R` | Reads one event from the data file (`output-Set0.txt`) and calculates the momentum magnitude of each bacterium. |
 | `PRA2003Week3.R` | First attempt at reading the average bacteria count per event and its statistical uncertainty (default `output-Set1.txt`, but allows user input). **Contained errors, not used in later weeks.** |
-| `PRA2003Week3Corrected.R` | Corrected version: reads the average bacteria count per event and its statistical uncertainty (default `output-Set1.txt`). This is the version used in all later weeks. |
+| `PRA2003Week3Corrected.R` | Corrected version: reads the average bacteria count per event and its statistical deviation as uncertainty (default `output-Set1.txt`). This is the version used in all later weeks. |
 | `PRA2003Week4.R` | Runs the Week 3 analysis across all 10 datasets (`output-Set1.txt` to `output-Set10.txt`) and computes the mean and standard deviation of each strain's count across the 10 sub-samples. |
+| `deliverable6F_momentum` | Goes through 10 datasets, keeps only the 12 strain IDs (6 WT/mutant pairs), calculates the momentum of every single bacteria and saves ID + momentum in `momenta-Set1.csv` ... `momenta-Set10.csv`. |
+| `deliverable6_momentum.py` | Reads the momenta of one WT/mutant pair, puts them in momentum bins, calculates the asymmetry and dN/dP per bin for every sub-sample, fits a straight line to A vs momentum and makes the plots. |
+| `asymmetry-<ID>.png` / `.csv`, `spectrum-<ID>.png` | Output of `deliverable6_momentum.py` for each of the 6 pairs. |
 
-Additional files will be added and documented in upcoming weeks.
 
 **Method: sub-sampling**
 
-The full sample (5M events) is split into 10 sub-samples of 500K events each (`output-Set1.txt` to `output-Set10.txt`). Each quantity is worked out separately within every subsample. The final result is just the mean of the 10 subsample results, which comes out equal to the result for the full sample. Its statistical uncertainty is taken as the standard deviation across those 10 subsample results.
+The full sample (5M events) is split into 10 sub-samples of around 500K events each (`output-Set1.txt` to `output-Set10.txt`). Each quantity is worked out separately within every subsample. The final result is just the mean of the 10 subsample results, which comes out equal to the result for the full sample. Its statistical uncertainty is taken as the standard deviation across those 10 subsample results.
 
 - Runs the same strain-counting logic from `PRA2003Week3Corrected.R` on each of the 10 files individually.
 - Computes, per strain, the mean count across the 10 subsamples and its SD.
