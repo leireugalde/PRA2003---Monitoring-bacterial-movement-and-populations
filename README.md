@@ -19,18 +19,18 @@ To run:
 1. Put all the data files (output-Set0.txt, output-Set1.txt ... output-Set10.txt) in the same folder as the scripts.
 2. Open that folder in RStudio/VS Code, or make sure your working directory is set to it 
 3. Depending on what you want to run:
-   - single dataset, week 3 version: `source("PRA2003Week3Corrected.R")` will ask you to type a filename, or just press enter to use output-Set1.txt
+ - single dataset, week 3 version: `source("PRA2003Week3Corrected.R")` will ask you to type a filename, otherwise, press enter to use output-Set1.txt
    - all 10 datasets combined, week 4: `source("PRA2003Week4.R")` runs automatically, no input needed, just needs PRA2003Week3Corrected.R,  in the same folder
-   - momentum analysis done during weeks 5 and 6
-      - `source("deliverable6F_momentum.R")´ reads all 10 datasets and makes momenta-Set1.csv- momenta-Set10.csv.
-            - This is slow step (a few minutes, the files have ~5 million lines each), only has to be run a few times
-   - `python deliverable6_momentum.py´ asks for the WT ID of the pair (211, 321, 2212, 3122, 3312 or 3334).
-            - Run it once per pair, takes a few seconds
+   - momentum analysis (week 5/6) following two steps: 
+     1. `source("deliverable6F_momentum.R")` reads all 10 datasets and makes `momenta-Set1.csv` ... `momenta-Set10.csv`.
+        - This takes a few minutes as the files are heavy, but it only has to be run once
+     2. `python deliverable6F_momentum.py` asks for the WT ID of a pair: 211, 321, 2212, 3122, 3312 or 3334.
+        - Run it once per pair, it only takes a few seconds
 4. Output:
    - week 3 prints the results table straight to the console
-   - week 4 prints the combined results and the WT/mutant comparison to the console, and also saves them as CSV files (`results-PerDataset.csv´, `results-Combined.csv´, `results-PairwiseAsymmetry.csv´) in the same folder, so they can be checked without re-running the script
-   - the momentum R script prints how many bacteria of each ID it found per dataset (should match the week 4 counts) and saves the `momenta-SetN.csv´ files
-   - the momentum Python script saves, for chosen pair: `asymmetry-<ID>.png´ (asymmetry vs momentum), `spectrum-<ID>.png` (dN/dP of WT and mutant vs momentum) and `asymmetry-<ID>.csv´ (all numbers per momentum bin). It also prints momentum percentiles, counts per sub-sample, the table per bin, the overall asymmetry and the line fit
+   - week 4 prints the combined results and the WT/mutant comparison to the console, and then saves them as CSV files (`results-PerDataset.csv´, `results-Combined.csv´, `results-PairwiseAsymmetry.csv´) in the same folder, so they can be checked without re-running the script
+   - the momentum R script prints how many bacteria of each ID it found per dataset (as a check, these should match the week 4 counts) and saves the `momenta-SetN.csv` files
+   - the momentum Python script saves, for the chosen pair: `asymmetry-<ID>.png` (asymmetry vs momentum), `spectrum-<ID>.png` (dN/dP of WT and mutant vs momentum) and `asymmetry-<ID>.csv` (all numbers per momentum bin). It also prints the momentum percentiles, the counts per sub-sample, the table per bin, the overall asymmetry and the line fit to the terminal.
 
 ## Files 
 | File | Description |
