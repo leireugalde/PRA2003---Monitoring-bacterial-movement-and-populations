@@ -175,8 +175,9 @@ Results from `deliverable6_momentum.py` (method explained above).
 
 #### E. coli (211 / −211)
 PICTURE 
+<img width="682" height="453" alt="Screenshot 2026-10-13 at 17 30 59" src="https://github.com/user-attachments/assets/3ad88094-a279-4e3a-aee8-8982223a1f9e" />
 
-All 13 points are above zero, so WT is more common than the mutant at every momentum, never the other way around. The asymmetry is small (below 1% everywhere). In the lowest bins (P < 3) A is only about 0.0003–0.0008 and the error bars of single bins reach zero, but from P ≈ 3 upward most points are clearly above zero, and the highest bins have the largest values (about 0.0025 between 16 and 40, and about 0.008 above 40). So the asymmetry found in Question 2 (7.2σ) is present across the whole momentum range, and it is largest for the fastest bacteria. The overall A (0.00081) is close to the low-momentum values because most E. coli have a low momentum, so those bins dominate the total.
+The 13 points are above zero, so WT is more common than the mutant at every momentum. The asymmetry is small (below 1% everywhere). In the lowest bins (P < 3) A is only about 0.0003–0.0008 and the error bars of single bins reach zero, but from P ≈ 3 upward most points are clearly above zero, and the highest bins have the largest values (about 0.0025 between 16 and 40, and about 0.008 above 40). So the asymmetry found in Question 2 (7.2σ) is present across the whole momentum range, and it is largest for the fastest bacteria. The overall A (0.00081) is close to the low-momentum values because most E. coli have a low momentum, so those bins dominate the total.
 
 
 
