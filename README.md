@@ -174,13 +174,33 @@ Results from `deliverable6_momentum.py` (method explained above).
 | Salmonella | 0.015 ± 0.029 | (−1.3 ± 0.8) × 10⁻² | 1.8σ | Not enough data |
 
 #### E. coli (211 / −211)
-PICTURE 
-<img width="682" height="453" alt="Screenshot 2026-10-13 at 17 30 59" src="https://github.com/user-attachments/assets/3ad88094-a279-4e3a-aee8-8982223a1f9e" />
-
 ![E.Coli 211 Pair Asymmetry as a function of momentum](E.coli_211_asymmetry.png)
 
 The 13 points are above zero, so WT is more common than the mutant at every momentum. The asymmetry is small (below 1% everywhere). In the lowest bins (P < 3) A is only about 0.0003–0.0008 and the error bars of single bins reach zero, but from P ≈ 3 upward most points are clearly above zero, and the highest bins have the largest values (about 0.0025 between 16 and 40, and about 0.008 above 40). So the asymmetry found in Question 2 (7.2σ) is present across the whole momentum range, and it is largest for the fastest bacteria. The overall A (0.00081) is close to the low-momentum values because most E. coli have a low momentum, so those bins dominate the total.
+#### B. subtilis (321 / −321)
+
+ 
+This is the most interesting one. In Question 2 B. subtilis came out symmetric (1.7σ), and below P ≈ 3 that is also what the plot shows: those points are consistent with zero (the 1–2 bin is even slightly negative). Above P ≈ 3, however, A becomes positive and the error bars mostly stay clear of zero: about 0.0016 at 3–5, 0.0027 at 8–16 and 0.007 above 16. So B. subtilis is symmetric for slow bacteria, but there is an asymmetry (more WT) for the faster ones. Because most bacteria have a low momentum, the many symmetric low-momentum bacteria "dilute" the overall A, which is why the asymmetry doesn't show up in Question 2. The individual high-momentum points still have large error bars (fewer bacteria up there), so this is based on all the high-momentum bins together rather than on one point.
+ 
+#### P. aeruginosa (2212 / −2212)
+
+ 
+The clearest case: asymmetric at every momentum. All 11 points are well above zero, even with the SD error bars, and none of them come close to the red line. A is about 0.0075–0.0088 below P = 3 and goes up to about 0.0127 at 8–12 and 0.015 above 16. P. aeruginosa has the biggest asymmetry of the pairs with enough data (≈ 1% overall), so the WT clearly outnumbers the antibiotic-resistant mutant at all momenta. A possible (hypothetical) explanation is that resistance has a fitness cost for the mutant, and since the asymmetry is even larger at high momentum, this cost might show up in movement (P. aeruginosa is a motile bacterium).
+ 
+#### S. pneumoniae (3122 / −3122)
+
+ 
+Asymmetric at all momenta: all 11 points are above zero, between about 0.005 and 0.013, and most of the error bars stay clear of zero (a few bins, like 1–1.5 and 6–8, just touch it). This matches Question 2 (8.5σ): WT is more common than the capsule-deficient mutant, and this holds for slow and fast bacteria. The points scatter more than for P. aeruginosa because S. pneumoniae has ~8 times fewer bacteria.
+ 
+#### M. tuberculosis (3312 / −3312)
+
+ 
+No clear asymmetry in any bin: every error bar (about ±0.015–0.025) crosses zero, because the error bars are much bigger than the A values themselves (about 0.005). Most points are slightly positive and one (2.5–3) is slightly negative, all well within their errors. This fits with Question 2 (0.9σ, symmetric). The main limitation is the amount of data: an asymmetry of about 0.5–1% (like P. aeruginosa) would not be visible with this many bacteria, so this means "no evidence of asymmetry" rather than "evidence that there is none".
+ 
+#### Salmonella (3334 / −3334)
+
+ 
+With only ~11,000 bacteria in total, only 4 bins could be used, and the error bars (about ±0.05–0.08) are much bigger than any of the A values. Every bin is consistent with zero, so no asymmetry can be seen at any momentum, same as in Question 2. There is simply too little data to say anything more.
 
 
-
-
+## Conclusion and limitations ## 
