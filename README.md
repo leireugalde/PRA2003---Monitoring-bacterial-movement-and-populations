@@ -12,7 +12,7 @@ This project analyzes bacterial tracking data to study the movement and prolifer
 3. Is there any asymmetry as a function of their momentum?
 
 ## Installation and usage
-Needs R (tested with R 4.x), no additional packets are required.
+Needs R (tested with R 4.x), no additional packages are required.
 The momentum analysis (Week 5/6) also requires Python 3 with numpy, pandas and matplotlib installed. 
 
 To run:
@@ -28,7 +28,7 @@ To run:
         - Run it once per pair, it only takes a few seconds
 4. Output:
    - week 3 prints the results table straight to the console
-   - week 4 prints the combined results and the WT/mutant comparison to the console, and then saves them as CSV files (`results-PerDataset.csv´, `results-Combined.csv´, `results-PairwiseAsymmetry.csv´) in the same folder, so they can be checked without re-running the script
+   - week 4 prints the combined results and the WT/mutant comparison to the console, and then saves them as CSV files (`results-PerDataset.csv´, `results-Combined.csv´, `results-PairwiseAsymmetry.csv`) in the same folder, so they can be checked without re-running the script
    - the momentum R script prints how many bacteria of each ID it found per dataset (as a check, these should match the week 4 counts) and saves the `momenta-SetN.csv` files
    - the momentum Python script saves, for the chosen pair: `asymmetry-<ID>.png` (asymmetry vs momentum), `spectrum-<ID>.png` (dN/dP of WT and mutant vs momentum) and `asymmetry-<ID>.csv` (all numbers per momentum bin). It also prints the momentum percentiles, the counts per sub-sample, the table per bin, the overall asymmetry and the line fit to the terminal.
 
@@ -37,11 +37,11 @@ To run:
 |---|---|
 | `PRA2003Week2.R` | Reads one event from the data file (`output-Set0.txt`) and calculates the momentum magnitude of each bacterium. |
 | `PRA2003Week3.R` | First attempt at reading the average bacteria count per event and its statistical uncertainty (default `output-Set1.txt`, but allows user input). **Contained errors, not used in later weeks.** |
-| `PRA2003Week3Corrected.R` | Corrected version: reads the average bacteria count per event and its statistical deviation as uncertainty (default `output-Set1.txt`). This is the version used in all later weeks. |
+| `PRA2003Week3Corrected.R` | Corrected version: reads the average bacteria count per event and its standard deviation as uncertainty (default `output-Set1.txt`). This is the version used in all later weeks. |
 | `PRA2003Week4.R` | Runs the Week 3 analysis across all 10 datasets (`output-Set1.txt` to `output-Set10.txt`) and computes the mean and standard deviation of each strain's count across the 10 sub-samples. |
-| `deliverable6F_momentum` | Goes through 10 datasets, keeps only the 12 strain IDs (6 WT/mutant pairs), calculates the momentum of every single bacteria and saves ID + momentum in `momenta-Set1.csv` ... `momenta-Set10.csv`. |
+| `deliverable6F_momentum.R` | Goes through 10 datasets, keeps only the 12 strain IDs (6 WT/mutant pairs), calculates the momentum of every single bacteria and saves ID + momentum in `momenta-Set1.csv` ... `momenta-Set10.csv`. |
 | `deliverable6_momentum.py` | Reads the momenta of one WT/mutant pair, puts them in momentum bins, calculates the asymmetry and dN/dP per bin for every sub-sample, fits a straight line to A vs momentum and makes the plots. |
-| `asymmetry-<ID>.png` / `.csv`, `spectrum-<ID>.png` | Output of `deliverable6_momentum.py` for each of the 6 pairs. |
+| `asymmetry-<ID>.png` / `.csv`, `spectrum-<ID>.png` | Output of `deliverable6_momentum.py` for each of the 6 pairs. Asymmetry graphs in respository, rest can be acessed when running the script. |
 
 
 **Method: sub-sampling**
@@ -58,8 +58,8 @@ To compare a WT strain with its mutant, the relative asymmetry is used:
 **A = (N_WT − N_mutant) / (N_WT + N_mutant)**
 
 The relative formula is used instead of the plain difference N_WT − N_mutant because:
-- The pairs have very different numbers of bacteria (ex. E. coli vs Salmonella), which can impact the results by rather showing which pair is more common, rather than the actual asymmetry, therefore skewing the results.
-- The relative formula is used therefore used to normalize the variance caused by individual size, strength, or total scale
+- The pairs have very different numbers of bacteria (ex. E. coli vs Salmonella), which wouls show what bacteria is more common, rather than the actual asymmetry, therefore skewing the results.
+- The relative formula is used, which divides by the total and allows putting every pair on the same scale for comparison
 - A has no unit and always lies between −1 and +1: A = 0 means equal numbers, A > 0 means more WT, A < 0 means more mutant.
 
 *A is always worked out separately for each of the 10 sub-samples first and then averaged, so that WT and mutant counts stay paired to the same events.*
@@ -71,10 +71,10 @@ The relative formula is used instead of the plain difference N_WT − N_mutant b
 **Method: asymmetry as a function of momentum (week 5/6)**
  
 **Momentum** 
-For every bacterium the total momentum is the length of its momentum vector, described as p = √(px² + py² + pz²), in units of 10⁻²⁰ kg·m/s.This focuses on how much momentum the bacterium has. This is done in R (`deliverable6_momentum.R`) because reading the raw files requires longer. The files for each pair can be done much faster on Python, as these use significantly smaller CSV files.
+For every bacterium the total momentum is the length of its momentum vector, described as p = √(px² + py² + pz²), in units of 10⁻²⁰ kg·m/s.This focuses on how much momentum the bacterium has. This is done in R (`deliverable6F_momentum.R`) because reading the raw files requires longer. The files for each pair can be done much faster on Python, as these use significantly smaller CSV files.
 
 **Bins**
-The momenta of a pair is organized into different momentum bins. This creates a histogram per sub-sample. Each pair had the same bin number and widths, as the asymmetry (A) compares these. Different pairs will have different bins, as they have different amounts of data. The bin edges, as in what determines the intervals,  was chosen based on the percentiles of each pair, which is visible in teh script. Most bacteria have lower momnetums, so there are more and more narrow bins in those regions. As the momentum increases the bins get wider. This allows each bin to have enough bacteria to have a useful A value. The first bin edge is 0, and everything in the last edge goes into the tailbin. This is so no bacteria gets left out, and is observed as the grey shaded area. 
+The momenta of a pair is organized into different momentum bins. This creates a histogram per sub-sample. Each pair had the same bin number and widths, as the asymmetry (A) compares these. Different pairs will have different bins, as they have different amounts of data. The bin edges, as in what determines the intervals,  was chosen based on the percentiles of each pair, which is visible in the script. Most bacteria have lower momnetums, so there are more and more narrow bins in those regions. As the momentum increases the bins get wider. This allows each bin to have enough bacteria to have a useful A value. The first bin edge is 0, and everything in the last edge goes into the tailbin. This is so no bacteria gets left out, and is observed as the grey shaded area. 
 
 *This shows the bins that were used for each pair* 
 
@@ -89,9 +89,6 @@ The momenta of a pair is organized into different momentum bins. This creates a 
  
 E. coli has two extra bins as it has a lot more data. Salmonella on the other hand has significantly less, so it is only given 4 bins. 
  
-**Asymmetry per bin.** 
-Same idea as Question 2 (check in answering of Question 2 why the relative formula is used). (see there for why the relative formula is used, mainly: the number of bacteria changes a lot with momentum, and A is not affected by that), but now per momentum bin: A = (N_WT − N_mutant) / (N_WT + N_mutant) is calculated in every bin for every one of the 10 sub-samples, and then averaged over the sub-samples. The average is weighted by the number of bacteria the sub-sample has in that bin, because a sub-sample with only a few bacteria in a bin gives a very noisy A and shouldn't count as much as one with thousands. The error bars are the (weighted) standard deviation of A across the 10 sub-samples, the same type of uncertainty as in Questions 1 and 2.
-
 **Asymmetry per bin** 
 The asymmetry A (see *Method: asymmetry*) is calculated in every momentum bin, separately for each of the 10 subsamples, and then averaged over the subsamples. This gives one A value per bin, which is what is plotted against momentum. The average is then weighted by how many bacteria each subsample has in that specific bin. If a subsample only has a few bacteria in a bin, it will give a noisy A, so it should count less than a subsample that has thousands. The same relative formula is used as in answering Question 2. 
 
@@ -147,12 +144,12 @@ All of the values were calculated manually in Excel by applying the formula indi
 | M. tuberculosis | 0.0004 ± 0.0005 | 0.6 ± 0.6 | 0.9σ | Symmetric |
 | Salmonella | 0.00004 ± 0.00007 | 1.6 ± 2.9 | 0.5σ | Symmetric |
 
-**Conclusion:** 
+**Conclusion Question 2** 
 Three pairs come out asymmetric at the 3σ threshold: E. coli, P. aeruginosa and S. pneumoniae, all with WT more abundant than the mutant. The other three: B. subtilis, M. tuberculosis and Salmonella, come out symmetric.
 
 
 ### 3. Asymmetry as a function of momentum
-Results from `deliverable6_momentum.py` (method explained above).
+Results from `deliverable6F_momentum.py` (method explained above).
 
 **How to read the graphs**
 - green points: average A of the 10 sub-samples in that momentum bin.
@@ -161,17 +158,19 @@ Results from `deliverable6_momentum.py` (method explained above).
 - pink band: overall A of the pair (all momenta together) ± SD (same value as in Question 2)
 - red dashed line: A = 0, equal numbers of WT and mutant --> not asymmetric
 - blue line: straight-line fit, the legend gives the slope and how many σ it is away from zero
-- grey area: the tailbin bin (all bacteria above the last bin edge), not used in the fit
+- grey area: the tailbin (all bacteria above last bin edge), not used in the fit
 
 **Summary**
-| Pair | Overall A (± SD) | Slope a (per 10⁻²⁰ kg·m/s) | Slope significance | Does A depend on momentum? |
+| Pair | Overall A (± SD) | Significance | Bins with A > 0 | Asymmetric across momentum? |
 |---|---|---|---|---|
-| E. coli | 0.00081 ± 0.00011 | (9.2 ± 1.4) × 10⁻⁵ | 6.4σ | Yes, A increases with P |
-| B. subtilis | 0.00114 ± 0.00066 | (3.0 ± 0.6) × 10⁻⁴ | 5.2σ | Yes, A increases with P |
-| P. aeruginosa | 0.00998 ± 0.00100 | (3.7 ± 0.8) × 10⁻⁴ | 4.5σ | Yes, A increases with P |
-| S. pneumoniae | 0.00894 ± 0.00106 | (5.1 ± 1.6) × 10⁻⁴ | 3.2σ | Borderline, just above 3σ |
-| M. tuberculosis | 0.00562 ± 0.00623 | (5.0 ± 4.4) × 10⁻⁴ | 1.1σ | No |
-| Salmonella | 0.015 ± 0.029 | (−1.3 ± 0.8) × 10⁻² | 1.8σ | Not enough data |
+| E. coli | 0.00081 ± 0.00011 | 7.2σ | 13 / 13 | Yes |
+| B. subtilis | 0.00114 ± 0.00066 | 1.7σ | 6 / 7 | Only above P ≈ 3 |
+| P. aeruginosa | 0.00998 ± 0.00100 | 10σ | 11 / 11 | Yes |
+| S. pneumoniae | 0.00894 ± 0.00106 | 8.5σ | 11 / 11 | Yes |
+| M. tuberculosis | 0.0056 ± 0.0062 | 0.9σ | 10 / 11 | No |
+| Salmonella | 0.015 ± 0.029 | 0.5σ | 3 / 4 | No (too little data) |
+
+Overall A and significance are from Question 2.
 
 #### E. coli (211 / −211)
 ![E.Coli 211 Pair Asymmetry as a function of momentum](asymmetry-211.png)
@@ -181,7 +180,7 @@ The 13 points are above zero, so WT is more common than the mutant at every mome
 #### B. subtilis (321 / −321)
 ![B.Subtilis 321 Pair Asymmetry as a function of momentum](asymmetry-321.png)
  
-B. subtilis shows some contradiction in results. In Question 2 B. subtilis came out symmetric (1.7σ). Below P ≈ 3 that is also what the plot shows. Those points are consistent with zero (interestingly, the 1–2 bin is even slightly negative). Above P ≈ 3, however, A becomes positive and the error bars have less interference with the red zero line. With about 0.0016 at 3–5, 0.0027 at 8–16 and 0.007 above 16. So B. subtilis is symmetric for slow bacteria, but there is an asymmetry (more WT) for the faster ones. Because most bacteria have a low momentum, the many symmetric low momentum bacteria shift the overall A, which is why the asymmetry doesn't show up in Question 2. The individual high momentum points still have large error bars, as there are less bacteria there, so this is based on all the combination of the hig -momentum bins rather than on one particular bin. A is therefore said to increase with P. 
+At first B. subtilis seems to contradict Question 2, where it came out symmetric (1.7σ). Below P ≈ 3 that is also what the plot shows. Those points are consistent with zero (interestingly, the 1–2 bin is even slightly negative). Above P ≈ 3, however, A becomes positive and the error bars mostly stay above the red zero linee. With about 0.0016 at 3–5, 0.0027 at 8–16 and 0.007 above 16. So B. subtilis is symmetric for slow bacteria, but there is an asymmetry (more WT) for the faster ones. Because most bacteria have a low momentum, the many symmetric low momentum bacteria pull the overall A toward zero, which is why the asymmetry doesn't show up in Question 2. The individual high momentum points still have large error bars, as there are less bacteria there, so this is based on all the combination of the hig -momentum bins rather than on one particular bin. A is therefore said to increase with P. 
  
 #### P. aeruginosa (2212 / −2212)
 ![P.aeruginosa 2212 Pair Asymmetry as a function of momentum](asymmetry-2212.png)
@@ -199,9 +198,29 @@ This bacteria is also asymmetric at all momenta. All 11 points are above zero, b
 For M. tuberculosis there is no clear asymmetry in any bin. Every error bar (about ±0.015–0.025) crosses zero, because the error bars are much bigger than the actual A values. Most points are slightly positive and one (2.5–3) is slightly negative, all well within their errors. This fits with Question 2 (0.9σ, symmetric). The main limitation is the amount of data: an asymmetry of about 0.5–1% (like P. aeruginosa) would not be visible with this many bacteria. Therefore it is assumed that there is no evidence of asymmetry.
  
 #### Salmonella (3334 / −3334)
-![Salmonella 3334 Pair Asymmetry as a function of momentum](asymmetry-211.png)
+![Salmonella 3334 Pair Asymmetry as a function of momentum](asymmetry-3334.png)
  
-With only around 11,000 bacteria in total, only 4 bins could be used for Salmonella. The error bars (about ±0.05–0.08) are much bigger than any of the A values. Every bin is consistent with zero, so no asymmetry can be seen at any momentum, same as in Question 2. There is not enough data to comment on anything else. 
+Since there were only around 11,000 bacteria in total, only 4 bins were used for Salmonella. The error bars (about ±0.05–0.08) are much bigger than any of the A values. Every bin is consistent with zero, so no asymmetry can be seen at any momentum, same as in Question 2. There is not enough data to comment on anything else. 
+
+## Analysis on straight fit line 
+Additionally a straight line was fit through the points of each pair, to determine whether there is a dependency of A on momentum. E. coli, B. subtilis and P. aeruginosa show that the asymmetry gets larger at a higher momentum. The tailbin would show the fastest bacteria (highest momentum), however, it was not included when fitting the line, as there is no proper representative momentum value to use. Nevertheless it is the highest point for the three previous bacteria, which would indicate that they follow the trend of asymmetry getting higher as the momentum increases. 
+
+| Pair | Slope a (per 10⁻²⁰ kg·m/s) | Significance | Result |
+|---|---|---|---|
+| E. coli | (9.2 ± 1.4) × 10⁻⁵ | 6.4σ | A increases with P |
+| B. subtilis | (3.0 ± 0.6) × 10⁻⁴ | 5.2σ | A increases with P |
+| P. aeruginosa | (3.7 ± 0.8) × 10⁻⁴ | 4.5σ | A increases with P |
+| S. pneumoniae | (5.1 ± 1.6) × 10⁻⁴ | 3.2σ | Borderline, just above 3σ |
+| M. tuberculosis | (5.0 ± 4.4) × 10⁻⁴ | 1.1σ | No change seen |
+| Salmonella | (−1.3 ± 0.8) × 10⁻² | 1.8σ | Not meaningful (only 3 points) |
 
 
-## Conclusion and limitations ## 
+## Conclusion Question 3
+There is asymmetry as a function of momentum, but not for every pair. P. aeruginosa, S. pneumoniae and E. coli are asymmetric across the entire momentum range, meaning that in every bin the WT is more common than the mutant. B. subtilis is very interestingly symmetric at low momentums but asymmetric at a high momentum (above P=3). M. tuberculosis and Salmonella show no clear asymmetry in the bins. Nevertheless, they had far less data, which meant that this made it more difficult to see their asymmetries. None of the pairs show a clearly negative asymmetry. That could indicate that the mutation could be harmful for the bacteria, since the WT is never outnumbered by the mutant. 
+
+
+## Limitations 
+- The error bars represent the SD across the subsample, showing how much a single subsample scatters. It is important to note that was used instead of SEM, which would calculate how precisely the average is known  
+- At a higher momentum, the bins had less bacteria, making the error bars bigger
+- The momentum distribution values were higher for Set 10 compared to other sets. This affects the spread and the SD
+- Results shift depending on number of bins used and their widths 
